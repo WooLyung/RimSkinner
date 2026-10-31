@@ -26,6 +26,14 @@
       <HintPath>..\..\..\..\..\..\RimWorld.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityStubs">
+      <HintPath>..\..\..\..\..\..\UnityStubs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Patch\" />
   </ItemGroup>
 
 </Project>
