@@ -16,6 +16,6 @@ namespace RimSkinner.Management
             return slots.TryGetValue(path, out slot);
         }
 
-        public IReadOnlyDictionary<string, GraphicSlot> Slots => slots;
+        public IReadOnlyDictionary<string, GraphicSlot> Slots => slots.AsReadOnly();
     }
 }

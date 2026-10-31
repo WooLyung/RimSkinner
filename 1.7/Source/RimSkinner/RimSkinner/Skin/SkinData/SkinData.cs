@@ -9,19 +9,22 @@ namespace RimSkinner.Skin
 
         public int FormatVersion { get; set; }
 
+        public string Id { get; init; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string ThingDefName { get; set; } = string.Empty;
         public Dictionary<string, SkinGraphicData> Graphics { get; set; } = new();
         public bool IsCompatible => FormatVersion == CurrentFormatVersion;
 
-        public static SkinData Create(string thingDefName, string name)
+        public static SkinData Create(string thingDefName, string id, string name)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(thingDefName);
+            ArgumentException.ThrowIfNullOrWhiteSpace(id);
             ThingDef def = DefDatabase<ThingDef>.GetNamed(thingDefName);
             GraphicSuit suit = ThingDefGraphics.GetGraphicSuit(def);
             var skin = new SkinData
             {
                 FormatVersion = CurrentFormatVersion,
+                Id = id.Trim(),
                 Name = name,
                 ThingDefName = thingDefName
             };
