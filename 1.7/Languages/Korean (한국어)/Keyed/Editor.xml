@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+    <RimSkinner.Editor.Buildings>건물</RimSkinner.Editor.Buildings>
+    <RimSkinner.Editor.Buildings.Tooltip>스킨을 설정할 건물을 선택합니다.</RimSkinner.Editor.Buildings.Tooltip>
+    <RimSkinner.Editor.Buildings.Search.Tooltip>건물을 검색하여 찾습니다.</RimSkinner.Editor.Buildings.Search.Tooltip>
+
+    <RimSkinner.Editor.Skins>스킨</RimSkinner.Editor.Skins>
+    <RimSkinner.Editor.Skins.Tooltip>새로운 스킨을 생성하거나 기존 스킨을 선택합니다.</RimSkinner.Editor.Skins.Tooltip>
+    <RimSkinner.Editor.Skins.NoSelectedBuilding>선택된 건물이 없습니다.</RimSkinner.Editor.Skins.NoSelectedBuilding>
+    <RimSkinner.Editor.Skins.CreateSkin>스킨 생성</RimSkinner.Editor.Skins.CreateSkin>
+    <RimSkinner.Editor.Skins.CreateSkin.Tooltip>새로운 스킨을 생성합니다.</RimSkinner.Editor.Skins.CreateSkin.Tooltip>
+    <RimSkinner.Editor.Skins.NewSkin>새 스킨</RimSkinner.Editor.Skins.NewSkin>
+
+    <RimSkinner.Editor.Graphics>그래픽</RimSkinner.Editor.Graphics>
+    <RimSkinner.Editor.Graphics.Tooltip>스킨을 구성하는 그래픽을 선택합니다.</RimSkinner.Editor.Graphics.Tooltip>
+    <RimSkinner.Editor.Graphics.NoSelectedBuildingOrSkin>선택된 건물 또는 스킨이 없습니다.</RimSkinner.Editor.Graphics.NoSelectedBuildingOrSkin>
+</LanguageData>

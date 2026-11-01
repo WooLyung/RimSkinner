@@ -38,6 +38,9 @@ namespace RimSkinner.Skin
                     case Type type when type == typeof(Graphic_Single):
                         skin.Graphics.Add(pair.Key, new SkinGraphicSingle());
                         break;
+                    case Type type when type == typeof(Graphic_Multi):
+                        skin.Graphics.Add(pair.Key, new SkinGraphicMulti());
+                        break;
                     default:
                         break;
                 }
