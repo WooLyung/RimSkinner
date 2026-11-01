@@ -14,4 +14,10 @@
     <RimSkinner.Editor.Graphics>그래픽</RimSkinner.Editor.Graphics>
     <RimSkinner.Editor.Graphics.Tooltip>스킨을 구성하는 그래픽을 선택합니다.</RimSkinner.Editor.Graphics.Tooltip>
     <RimSkinner.Editor.Graphics.NoSelectedBuildingOrSkin>선택된 건물 또는 스킨이 없습니다.</RimSkinner.Editor.Graphics.NoSelectedBuildingOrSkin>
+
+    <RimSkinner.Editor.SelectedBuildings.Tooltip>선택한 건물입니다.</RimSkinner.Editor.SelectedBuildings.Tooltip>
+    <RimSkinner.Editor.SelectedSkins.Tooltip>선택한 스킨입니다.</RimSkinner.Editor.SelectedSkins.Tooltip>
+    <RimSkinner.Editor.SelectedGraphics.Tooltip>선택한 그래픽입니다.</RimSkinner.Editor.SelectedGraphics.Tooltip>
+    <RimSkinner.Editor.NoSelected>선택된 건물, 스킨 또는 그래픽이 없습니다.</RimSkinner.Editor.NoSelected>
+    <RimSkinner.Editor.UnsupportedGraphicClass>지원하지 않는 그래픽 클래스입니다.</RimSkinner.Editor.UnsupportedGraphicClass>
 </LanguageData>

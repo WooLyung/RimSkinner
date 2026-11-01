@@ -22,5 +22,7 @@ namespace RimSkinner.Skin
         public float? OverlayOpacity { get; set; }
         public bool? AddTopAltitudeBias { get; set; }
         public bool? IgnoreThingDrawColor { get; set; }
+
+        public abstract SkinGraphicData Clone();
     }
 }

@@ -1,4 +1,5 @@
 using RimSkinner.Management;
+using UnityEngine;
 using Verse;
 
 namespace RimSkinner.Skin
@@ -47,6 +48,15 @@ namespace RimSkinner.Skin
             }
 
             return skin;
+        }
+
+        public static Texture2D? CloneTexture2D(Texture2D? original)
+        {
+            if (original == null)
+                return null;
+            
+            Texture2D clone = new Texture2D(original.width, original.height, original.format, original.mipmapCount > 1);
+            return clone;
         }
     }
 }

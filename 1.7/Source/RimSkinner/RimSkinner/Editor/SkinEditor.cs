@@ -3,6 +3,7 @@ using RimSkinner.Skin;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using static UnityEngine.GraphicsBuffer;
 
 namespace RimSkinner.Editor
 {
@@ -34,13 +35,20 @@ namespace RimSkinner.Editor
         private string buildingSearch = string.Empty;
         private IReadOnlyList<SkinData> buildingSkins = Array.Empty<SkinData>();
         private List<string> graphicPaths = new();
+        private GraphicSuit? graphicSuit = null;
         private int expandedSection;
+        private SkinEditorContent content = new();
+
         private Vector2 buildingScroll;
         private Vector2 skinScroll;
         private Vector2 graphicScroll;
+
         public override Vector2 InitialSize => new Vector2(Mathf.Min(1100f, UI.screenWidth - 40f), Mathf.Min(750f, UI.screenHeight - 40f));
 
-        public static void Open(ThingDef? buildingDef = null) => Find.WindowStack.Add(new SkinEditor(buildingDef));
+        public static void Open(ThingDef? buildingDef = null)
+        {
+            Find.WindowStack.Add(new SkinEditor(buildingDef));
+        }
 
         public SkinEditor(ThingDef? buildingDef = null)
         {
@@ -119,9 +127,98 @@ namespace RimSkinner.Editor
 
         private void DrawEditor(Rect rect)
         {
-            Widgets.DrawMenuSection(rect);
+            const float padding = 12f;
+            const float gap = 6f;
+
+            float infoWidth = rect.width - padding * 2f;
+            string graphicPath = SelectedGraphicPath ?? "";
+            GameFont previousFont = Text.Font;
+            Text.Font = GameFont.Small;
+            float pathHeight = Mathf.Max(24f, Text.CalcHeight(graphicPath, Mathf.Max(1f, infoWidth - Mathf.Min(90f, infoWidth * 0.25f) - 12f)));
+            Text.Font = previousFont;
+
+            Rect infoPanel = new Rect(rect.x, rect.y, rect.width, padding * 2f + 52f + pathHeight);
+            Widgets.DrawMenuSection(infoPanel);
+            Rect info = infoPanel.ContractedBy(padding);
+            DrawSelectionInfo(new Rect(info.x, info.y, info.width, 24f), "RimSkinner.Editor.Buildings".Translate(), "RimSkinner.Editor.SelectedBuildings.Tooltip".Translate(), SelectedBuildingDef?.LabelCap.ToString(), SelectedBuildingDef?.defName);
+            DrawSelectionInfo(new Rect(info.x, info.y + 26f, info.width, 24f), "RimSkinner.Editor.Skins".Translate(), "RimSkinner.Editor.SelectedSkins.Tooltip".Translate(), SelectedSkin?.Name, SelectedSkin?.Id);
+            DrawSelectionInfo(new Rect(info.x, info.y + 52f, info.width, pathHeight), "RimSkinner.Editor.Graphics".Translate(), "RimSkinner.Editor.SelectedGraphics.Tooltip".Translate(), graphicPath, null);
+
             if (SelectedBuildingDef == null || SelectedSkin == null || SelectedGraphicPath == null)
+            {
+                PrintCenterMessage("RimSkinner.Editor.NoSelected".Translate());
                 return;
+            }
+
+            if (graphicSuit == null)
+                return;
+
+            if (!graphicSuit.Slots.TryGetValue(SelectedGraphicPath, out GraphicSlot? slot) || slot == null)
+                return;
+
+            if (!SkinEditorContent.SupportedGraphics.Contains(slot.SourceData.graphicClass))
+            {
+                PrintCenterMessage("RimSkinner.Editor.UnsupportedGraphicClass".Translate());
+                return;
+            }
+
+            content.DrawContent(new Rect(rect.x, infoPanel.yMax + gap, rect.width, Mathf.Max(0f, rect.yMax - infoPanel.yMax - gap)));
+
+            void PrintCenterMessage(string message)
+            {
+                Rect messageRect = new Rect(rect.x, infoPanel.yMax + gap, rect.width, Mathf.Max(0f, rect.yMax - infoPanel.yMax - gap));
+                TextAnchor previousAnchor = Text.Anchor;
+                GameFont messageFont = Text.Font;
+                try
+                {
+                    Text.Anchor = TextAnchor.MiddleCenter;
+                    Text.Font = GameFont.Small;
+                    Widgets.Label(messageRect.ContractedBy(12f), message);
+                }
+                finally
+                {
+                    Text.Anchor = previousAnchor;
+                    Text.Font = messageFont;
+                }
+            }
+        }
+
+        private void DrawSelectionInfo(Rect rect, string label, string tooltip, string? value, string? detail)
+        {
+            GameFont previousFont = Text.Font;
+            Color previousColor = GUI.color;
+            TextAnchor previousAnchor = Text.Anchor;
+
+            try
+            {
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.UpperLeft;
+                float labelWidth = Mathf.Min(90f, rect.width * 0.25f);
+                GUI.color = new Color(0.65f, 0.65f, 0.65f);
+                Widgets.Label(new Rect(rect.x, rect.y, labelWidth, 24f), label.Truncate(labelWidth));
+                Rect valueRect = new Rect(rect.x + labelWidth + 12f, rect.y, rect.width - labelWidth - 12f, rect.height);
+                GUI.color = Color.white;
+
+                if (string.IsNullOrEmpty(detail))
+                    Widgets.Label(valueRect, value ?? "");
+                else
+                {
+                    float nameWidth = Mathf.Min(Text.CalcSize(value ?? "").x, valueRect.width * 0.6f);
+                    Widgets.Label(new Rect(valueRect.x, valueRect.y, nameWidth, 24f), (value ?? "").Truncate(nameWidth));
+                    Text.Font = GameFont.Tiny;
+                    GUI.color = new Color(0.65f, 0.65f, 0.65f);
+                    float detailWidth = Mathf.Max(1f, valueRect.width - nameWidth - 10f);
+                    Widgets.Label(new Rect(valueRect.x + nameWidth + 10f, valueRect.y + 3f, detailWidth, 21f), detail.Truncate(detailWidth));
+                }
+
+                TooltipHandler.TipRegion(rect, tooltip);
+            }
+            finally
+            {
+                Text.Font = previousFont;
+                Text.Anchor = previousAnchor;
+                GUI.color = previousColor;
+            }
         }
 
         private void DrawBuildings(Rect rect)
@@ -154,13 +251,16 @@ namespace RimSkinner.Editor
                 Rect row = new Rect(0f, i * rowHeight, view.width, rowHeight);
                 if (row.yMax < buildingScroll.y || row.y > buildingScroll.y + outer.height)
                     continue;
+
                 ThingDef def = filteredBuildingDefs[i];
                 if (def == SelectedBuildingDef)
                     Widgets.DrawHighlightSelected(row);
+
                 Widgets.DrawHighlightIfMouseover(row);
                 Widgets.Label(new Rect(6f, row.y + 5f, row.width - 12f, row.height - 5f),
                     def.LabelCap.ToString().Truncate(Mathf.Max(1f, row.width - 12f)));
                 TooltipHandler.TipRegion(row, $"{def.LabelCap} ({def.defName})");
+
                 if (Widgets.ButtonInvisible(row))
                     SelectBuilding(def);
             }
@@ -178,10 +278,13 @@ namespace RimSkinner.Editor
             SelectedBuildingDef = def;
             SelectedSkin = null;
             SelectedGraphicPath = null;
+
             skinScroll = Vector2.zero;
             graphicScroll = Vector2.zero;
+
+            graphicSuit = ThingDefGraphics.GetGraphicSuit(def);
             buildingSkins = SkinLibrary.GetSkins(def);
-            graphicPaths = ThingDefGraphics.GetGraphicSuit(def).Slots.Keys.ToList();
+            graphicPaths = graphicSuit.Slots.Keys.ToList();
         }
 
         private void DrawSkins(Rect rect)
@@ -215,6 +318,7 @@ namespace RimSkinner.Editor
                 Widgets.Label(new Rect(6f, row.y + 5f, row.width - 12f, row.height - 5f),
                     item.Name.Truncate(Mathf.Max(1f, row.width - 12f)));
                 TooltipHandler.TipRegion(row, $"{item.Name} ({item.Id})");
+
                 if (Widgets.ButtonInvisible(row))
                     SelectedSkin = item;
             }
@@ -259,13 +363,40 @@ namespace RimSkinner.Editor
                 if (item == SelectedGraphicPath)
                     Widgets.DrawHighlightSelected(row);
                 Widgets.DrawHighlightIfMouseover(row);
+
                 Widgets.Label(new Rect(6f, row.y + 5f, row.width - 12f, row.height - 5f),
                     item.Truncate(Mathf.Max(1f, row.width - 12f)));
                 TooltipHandler.TipRegion(row, item);
+
                 if (Widgets.ButtonInvisible(row))
-                    SelectedGraphicPath = item;
+                    SelectGraphicPath(item);
             }
             Widgets.EndScrollView();
+        }
+
+        private void SelectGraphicPath(string item)
+        {
+            SelectedGraphicPath = item;
+            content.Clear();
+
+            if (graphicSuit == null)
+                return;
+            if (SelectedBuildingDef == null)
+                return;
+            if (SelectedSkin == null)
+                return;
+            if (!graphicSuit.Slots.TryGetValue(SelectedGraphicPath, out GraphicSlot? slot) || slot == null)
+                return;
+            if (!SelectedSkin.Graphics.TryGetValue(SelectedGraphicPath, out SkinGraphicData? target) || target == null)
+                return;
+
+            content.InitContent(
+                slot,
+                target,
+                SelectedBuildingDef,
+                SelectedSkin,
+                SelectedGraphicPath
+            );
         }
     }
 }
