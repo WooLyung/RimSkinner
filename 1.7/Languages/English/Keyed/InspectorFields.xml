@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RimSkinner.Fields.Color>Color</RimSkinner.Fields.Color>
+  <RimSkinner.Fields.ColorTwo>Secondary color</RimSkinner.Fields.ColorTwo>
+  <RimSkinner.Fields.DrawSize>Draw size</RimSkinner.Fields.DrawSize>
+  <RimSkinner.Fields.DrawOffset>Draw offset</RimSkinner.Fields.DrawOffset>
+  <RimSkinner.Fields.DrawRotated>Rotate</RimSkinner.Fields.DrawRotated>
+  <RimSkinner.Fields.AllowFlip>Allow flip</RimSkinner.Fields.AllowFlip>
+  <RimSkinner.Fields.FlipExtraRotation>Flip rotation</RimSkinner.Fields.FlipExtraRotation>
+  <RimSkinner.Fields.ShaderTypeDefName>Shader def</RimSkinner.Fields.ShaderTypeDefName>
+  <RimSkinner.Fields.TextureRepeats>Repeat texture</RimSkinner.Fields.TextureRepeats>
+  <RimSkinner.Fields.AllowAtlasing>Allow atlasing</RimSkinner.Fields.AllowAtlasing>
+  <RimSkinner.Fields.RenderQueue>Render queue</RimSkinner.Fields.RenderQueue>
+  <RimSkinner.Fields.OverlayOpacity>Overlay opacity</RimSkinner.Fields.OverlayOpacity>
+  <RimSkinner.Fields.AddTopAltitudeBias>Top altitude bias</RimSkinner.Fields.AddTopAltitudeBias>
+  <RimSkinner.Fields.IgnoreThingDrawColor>Ignore paint</RimSkinner.Fields.IgnoreThingDrawColor>
+  <RimSkinner.Fields.Texture>Texture</RimSkinner.Fields.Texture>
+  <RimSkinner.Fields.Mask>Mask</RimSkinner.Fields.Mask>
+  <RimSkinner.Fields.DrawOffsetNorth>Offset North</RimSkinner.Fields.DrawOffsetNorth>
+  <RimSkinner.Fields.TextureNorth>Texture North</RimSkinner.Fields.TextureNorth>
+  <RimSkinner.Fields.MaskNorth>Mask North</RimSkinner.Fields.MaskNorth>
+  <RimSkinner.Fields.DrawOffsetEast>Offset East</RimSkinner.Fields.DrawOffsetEast>
+  <RimSkinner.Fields.TextureEast>Texture East</RimSkinner.Fields.TextureEast>
+  <RimSkinner.Fields.MaskEast>Mask East</RimSkinner.Fields.MaskEast>
+  <RimSkinner.Fields.DrawOffsetSouth>Offset South</RimSkinner.Fields.DrawOffsetSouth>
+  <RimSkinner.Fields.TextureSouth>Texture South</RimSkinner.Fields.TextureSouth>
+  <RimSkinner.Fields.MaskSouth>Mask South</RimSkinner.Fields.MaskSouth>
+  <RimSkinner.Fields.DrawOffsetWest>Offset West</RimSkinner.Fields.DrawOffsetWest>
+  <RimSkinner.Fields.TextureWest>Texture West</RimSkinner.Fields.TextureWest>
+  <RimSkinner.Fields.MaskWest>Mask West</RimSkinner.Fields.MaskWest>
+  <RimSkinner.Inspector.PaintColor>Paint</RimSkinner.Inspector.PaintColor>
+  <RimSkinner.Inspector.LoadPng>Load PNG</RimSkinner.Inspector.LoadPng>
+  <RimSkinner.Inspector.PngPath>Enter the full path to a PNG file.</RimSkinner.Inspector.PngPath>
+  <RimSkinner.Fields.UseOriginal>Use the original graphic value. Disable to edit this property.</RimSkinner.Fields.UseOriginal>
+</LanguageData>

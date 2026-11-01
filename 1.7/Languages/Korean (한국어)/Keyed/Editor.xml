@@ -20,4 +20,45 @@
     <RimSkinner.Editor.SelectedGraphics.Tooltip>선택한 그래픽입니다.</RimSkinner.Editor.SelectedGraphics.Tooltip>
     <RimSkinner.Editor.NoSelected>선택된 건물, 스킨 또는 그래픽이 없습니다.</RimSkinner.Editor.NoSelected>
     <RimSkinner.Editor.UnsupportedGraphicClass>지원하지 않는 그래픽 클래스입니다.</RimSkinner.Editor.UnsupportedGraphicClass>
+
+    <RimSkinner.Editor.Inspector>인스펙터</RimSkinner.Editor.Inspector>
+    <RimSkinner.Editor.Inspector.Color>색상</RimSkinner.Editor.Inspector.Color>
+    <RimSkinner.Editor.Inspector.ColorTwo>보조 색상</RimSkinner.Editor.Inspector.ColorTwo>
+    <RimSkinner.Editor.Inspector.DrawSize>크기</RimSkinner.Editor.Inspector.DrawSize>
+    <RimSkinner.Editor.Inspector.DrawOffset>위치 오프셋</RimSkinner.Editor.Inspector.DrawOffset>
+    <RimSkinner.Editor.Inspector.DrawRotated>회전</RimSkinner.Editor.Inspector.DrawRotated>
+    <RimSkinner.Editor.Inspector.AllowFlip>반전 허용</RimSkinner.Editor.Inspector.AllowFlip>
+    <RimSkinner.Editor.Inspector.FlipExtraRotation>반전 회전각</RimSkinner.Editor.Inspector.FlipExtraRotation>
+    <RimSkinner.Editor.Inspector.ShaderTypeDefName>셰이더 Def</RimSkinner.Editor.Inspector.ShaderTypeDefName>
+    <RimSkinner.Editor.Inspector.TextureRepeats>텍스처 반복</RimSkinner.Editor.Inspector.TextureRepeats>
+    <RimSkinner.Editor.Inspector.AllowAtlasing>아틀라스 허용</RimSkinner.Editor.Inspector.AllowAtlasing>
+    <RimSkinner.Editor.Inspector.RenderQueue>렌더 큐</RimSkinner.Editor.Inspector.RenderQueue>
+    <RimSkinner.Editor.Inspector.OverlayOpacity>오버레이 불투명도</RimSkinner.Editor.Inspector.OverlayOpacity>
+    <RimSkinner.Editor.Inspector.AddTopAltitudeBias>상단 높이 보정</RimSkinner.Editor.Inspector.AddTopAltitudeBias>
+    <RimSkinner.Editor.Inspector.IgnoreThingDrawColor>도색 무시</RimSkinner.Editor.Inspector.IgnoreThingDrawColor>
+    <RimSkinner.Editor.Inspector.Texture>텍스처</RimSkinner.Editor.Inspector.Texture>
+    <RimSkinner.Editor.Inspector.Mask>마스크</RimSkinner.Editor.Inspector.Mask>
+    <RimSkinner.Editor.Inspector.DrawOffsetNorth>오프셋 (북)</RimSkinner.Editor.Inspector.DrawOffsetNorth>
+    <RimSkinner.Editor.Inspector.TextureNorth>텍스처 (북)</RimSkinner.Editor.Inspector.TextureNorth>
+    <RimSkinner.Editor.Inspector.MaskNorth>마스크 (북)</RimSkinner.Editor.Inspector.MaskNorth>
+    <RimSkinner.Editor.Inspector.DrawOffsetEast>오프셋 (동)</RimSkinner.Editor.Inspector.DrawOffsetEast>
+    <RimSkinner.Editor.Inspector.TextureEast>텍스처 (동)</RimSkinner.Editor.Inspector.TextureEast>
+    <RimSkinner.Editor.Inspector.MaskEast>마스크 (동)</RimSkinner.Editor.Inspector.MaskEast>
+    <RimSkinner.Editor.Inspector.DrawOffsetSouth>오프셋 (남)</RimSkinner.Editor.Inspector.DrawOffsetSouth>
+    <RimSkinner.Editor.Inspector.TextureSouth>텍스처 (남)</RimSkinner.Editor.Inspector.TextureSouth>
+    <RimSkinner.Editor.Inspector.MaskSouth>마스크 (남)</RimSkinner.Editor.Inspector.MaskSouth>
+    <RimSkinner.Editor.Inspector.DrawOffsetWest>오프셋 (서)</RimSkinner.Editor.Inspector.DrawOffsetWest>
+    <RimSkinner.Editor.Inspector.TextureWest>텍스처 (서)</RimSkinner.Editor.Inspector.TextureWest>
+    <RimSkinner.Editor.Inspector.MaskWest>마스크 (서)</RimSkinner.Editor.Inspector.MaskWest>
+    <RimSkinner.Editor.Inspector.UseOriginal>원본 그래픽의 값을 사용합니다. 해제하면 이 값을 편집할 수 있습니다.</RimSkinner.Editor.Inspector.UseOriginal>
+    <RimSkinner.Editor.LoadPng>불러오기</RimSkinner.Editor.LoadPng>
+
+    <RimSkinner.Editor.PreviewController>미리보기 제어</RimSkinner.Editor.PreviewController>
+    <RimSkinner.Editor.PreviewController.Color>색상</RimSkinner.Editor.PreviewController.Color>
+    <RimSkinner.Editor.PreviewController.Single>단일</RimSkinner.Editor.PreviewController.Single>
+    <RimSkinner.Editor.PreviewController.North>북쪽</RimSkinner.Editor.PreviewController.North>
+    <RimSkinner.Editor.PreviewController.East>동쪽</RimSkinner.Editor.PreviewController.East>
+    <RimSkinner.Editor.PreviewController.South>남쪽</RimSkinner.Editor.PreviewController.South>
+    <RimSkinner.Editor.PreviewController.West>서쪽</RimSkinner.Editor.PreviewController.West>
+    <RimSkinner.Editor.PreviewController.ColorTwo>보조 색상</RimSkinner.Editor.PreviewController.ColorTwo>
 </LanguageData>

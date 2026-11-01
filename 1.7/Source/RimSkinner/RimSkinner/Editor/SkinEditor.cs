@@ -3,7 +3,6 @@ using RimSkinner.Skin;
 using RimWorld;
 using UnityEngine;
 using Verse;
-using static UnityEngine.GraphicsBuffer;
 
 namespace RimSkinner.Editor
 {
@@ -64,8 +63,17 @@ namespace RimSkinner.Editor
                 SelectBuilding(buildingDef);
         }
 
+        public override void PostClose()
+        {
+            content.Clear();
+            base.PostClose();
+        }
+
         public override void DoWindowContents(Rect inRect)
         {
+            if (Event.current.type == EventType.MouseDown)
+                GUI.FocusControl(null);
+
             float width = Mathf.Min(315f, inRect.width * 0.315f);
             const float headerHeight = 32f;
             const float gap = 6f;
@@ -162,6 +170,9 @@ namespace RimSkinner.Editor
                 return;
             }
 
+            if (!SelectedSkin.Graphics.TryGetValue(SelectedGraphicPath, out var selectedGraphic))
+                return;
+            content.InitContent(slot, selectedGraphic, SelectedBuildingDef, SelectedSkin, SelectedGraphicPath);
             content.DrawContent(new Rect(rect.x, infoPanel.yMax + gap, rect.width, Mathf.Max(0f, rect.yMax - infoPanel.yMax - gap)));
 
             void PrintCenterMessage(string message)
