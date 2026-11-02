@@ -60,7 +60,10 @@ namespace RimSkinner.Editor
             doCloseX = true;
 
             if (buildingDef != null)
+            {
                 SelectBuilding(buildingDef);
+                expandedSection = 1;
+            }
         }
 
         public override void PostClose()

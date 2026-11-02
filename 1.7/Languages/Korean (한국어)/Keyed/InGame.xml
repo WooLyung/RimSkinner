@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+    <RimSkinner.Gizmo.SkinSettings>스킨 설정</RimSkinner.Gizmo.SkinSettings>
+    <RimSkinner.Gizmo.SkinSettings.Tooltip>선택한 건물의 스킨을 설정합니다.</RimSkinner.Gizmo.SkinSettings.Tooltip>
+
+    <RimSkinner.Gizmo.UnassignSkin>스킨 해제</RimSkinner.Gizmo.UnassignSkin>
+    <RimSkinner.Gizmo.UnassignSkin.Tooltip>선택한 건물의 스킨을 해제합니다.</RimSkinner.Gizmo.UnassignSkin.Tooltip>
+    <RimSkinner.Gizmo.UnassignSkin.Completed>{0}의 스킨을 해제했습니다.</RimSkinner.Gizmo.UnassignSkin.Completed>
+    
+    <RimSkinner.Gizmo.OpenEditor>에디터 열기</RimSkinner.Gizmo.OpenEditor>
+    <RimSkinner.Gizmo.OpenEditor.Tooltip>선택한 건물의 스킨을 편집하는 에디터를 엽니다.</RimSkinner.Gizmo.OpenEditor.Tooltip>
+
+    <RimSkinner.Gizmo.SelectSkin.Tooltip>건물을 해당 스킨으로 설정합니다.</RimSkinner.Gizmo.SelectSkin.Tooltip>
+    <RimSkinner.Gizmo.SelectSkin.Completed>{0}의 스킨을 (1)(으)로 설정했습니다.</RimSkinner.Gizmo.SelectSkin.Completed>
+</LanguageData>
