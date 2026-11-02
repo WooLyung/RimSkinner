@@ -26,6 +26,7 @@ namespace RimSkinner.Editor
         private List<SkinEditorInspectorElement> inspectorElements = new();
         private Vector2 inspectorScroll;
         private Texture2D? previewFloor;
+        private Dictionary<string, SkinGraphicData> drafts = new();
 
         public void Clear()
         {
@@ -43,6 +44,7 @@ namespace RimSkinner.Editor
 
         public void InitContent(GraphicSlot graphicSlot, SkinGraphicData target, ThingDef buildingDef, SkinData skin, string graphicPath)
         {
+            SelectSkin(skin);
             if (IsReady && ReferenceEquals(this.graphicSlot, graphicSlot) && ReferenceEquals(sourceTarget, target) && ReferenceEquals(this.skin, skin))
                 return;
 
@@ -50,7 +52,7 @@ namespace RimSkinner.Editor
             if (this.target is SkinGraphicMulti multi) multi.ReleasePreview();
             this.graphicSlot = graphicSlot;
             sourceTarget = target;
-            this.target = target.Clone();
+            this.target = drafts[graphicPath];
             inspectorElements = this.target.Elements.ToList();
             inspectorScroll = Vector2.zero;
             this.buildingDef = buildingDef;
@@ -132,10 +134,8 @@ namespace RimSkinner.Editor
             if (Event.current.type != EventType.Repaint)
                 return;
 
-            int columns = Mathf.Max(1, buildingDef.size.x) * 3;
-            int rows = Mathf.Max(1, buildingDef.size.z) * 3;
-            if (target is SkinGraphicMulti && (PreviewController.SelectedIndex == 1 || PreviewController.SelectedIndex == 3))
-                (columns, rows) = (rows, columns);
+            int columns = Mathf.Max(1, Mathf.Max(buildingDef.size.x, buildingDef.size.z)) * 3;
+            int rows = columns;
             float pixelsPerCell = Mathf.Min(rect.width / columns, rect.height / rows);
             Rect floorRect = new Rect(
                 rect.center.x - columns * pixelsPerCell * 0.5f,
@@ -153,10 +153,104 @@ namespace RimSkinner.Editor
                             floorRect.y + z * pixelsPerCell, pixelsPerCell, pixelsPerCell),
                             previewFloor, new Rect((x % 16) / 16f, (z % 16) / 16f, 1f / 16f, 1f / 16f));
 
-                target.DrawPreview(floorRect, graphicSlot, PreviewController.SelectedIndex,
-                    PreviewController.PreviewColor, PreviewController.PreviewColorTwo, pixelsPerCell);
+                int footprintWidth = Mathf.Max(1, buildingDef.size.x);
+                int footprintHeight = Mathf.Max(1, buildingDef.size.z);
+                if (target is SkinGraphicMulti && (PreviewController.SelectedIndex == 1 || PreviewController.SelectedIndex == 3))
+                    (footprintWidth, footprintHeight) = (footprintHeight, footprintWidth);
+
+                // Integer starting cells keep odd-sized footprints on the tile grid.
+                int startX = (columns - footprintWidth) / 2;
+                int startZ = (rows - footprintHeight) / 2;
+                float shiftX = (startX + footprintWidth * 0.5f - columns * 0.5f) * pixelsPerCell;
+                float shiftY = (startZ + footprintHeight * 0.5f - rows * 0.5f) * pixelsPerCell;
+                GUI.BeginGroup(floorRect);
+                try
+                {
+                    target.DrawPreview(new Rect(shiftX, shiftY, floorRect.width, floorRect.height),
+                        graphicSlot, PreviewController.SelectedIndex,
+                        PreviewController.PreviewColor, PreviewController.PreviewColorTwo, pixelsPerCell);
+                }
+                finally { GUI.EndGroup(); }
             }
             finally { GUI.color = previousColor; }
+        }
+
+        public void SelectSkin(SkinData? selected)
+        {
+            if (ReferenceEquals(skin, selected)) return;
+            Clear();
+            ReleaseDrafts();
+            skin = selected!;
+            drafts = selected == null ? new() :
+                selected.Graphics.ToDictionary(pair => pair.Key, pair => pair.Value.Clone());
+        }
+
+        private void ReleaseDrafts()
+        {
+            foreach (var graphic in drafts.Values)
+            {
+                if (graphic is SkinGraphicSingle single) single.ReleasePreview();
+                if (graphic is SkinGraphicMulti multi) multi.ReleasePreview();
+            }
+        }
+
+        public SkinData CreateDuplicate(string id)
+        {
+            return new SkinData
+            {
+                Id = id,
+                Name = skin.Name,
+                ThingDefName = skin.ThingDefName,
+                FormatVersion = skin.FormatVersion,
+                Graphics = drafts.ToDictionary(pair => pair.Key, pair => pair.Value.Clone())
+            };
+        }
+
+        public void Save()
+        {
+            if (skin == null) 
+                return;
+
+            var saved = drafts.ToDictionary(pair => pair.Key, pair => pair.Value.Clone());
+            skin.Graphics = saved;
+            sourceTarget = saved.GetValueOrDefault(graphicPath ?? string.Empty);
+            GUI.FocusControl(null);
+
+            Messages.Message("RimSkinner.Editor.Actions.Save.Completed".Translate(skin.Name), RimWorld.MessageTypeDefOf.TaskCompletion, historical: false);
+        }
+
+        public void Revert()
+        {
+            if (skin == null)
+                return;
+
+            var restored = skin.Graphics.ToDictionary(pair => pair.Key, pair => pair.Value.Clone());
+            Clear();
+            ReleaseDrafts();
+            drafts = restored;
+            GUI.FocusControl(null);
+
+            Messages.Message("RimSkinner.Editor.Actions.Revert.Completed".Translate(skin.Name), RimWorld.MessageTypeDefOf.TaskCompletion, historical: false);
+        }
+
+        public void Reset()
+        {
+            if (skin == null) 
+                return;
+
+            var reset = drafts.ToDictionary(pair => pair.Key, pair => pair.Value switch
+            {
+                SkinGraphicSingle => (SkinGraphicData)new SkinGraphicSingle(),
+                SkinGraphicMulti => new SkinGraphicMulti(),
+                _ => throw new NotSupportedException($"Unsupported skin graphic: {pair.Value.GetType().Name}")
+            });
+
+            Clear();
+            ReleaseDrafts();
+            drafts = reset;
+            GUI.FocusControl(null);
+
+            Messages.Message("RimSkinner.Editor.Actions.Reset.Completed".Translate(skin.Name), RimWorld.MessageTypeDefOf.TaskCompletion, historical: false);
         }
     }
 }

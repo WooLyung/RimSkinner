@@ -4,4 +4,23 @@
     <RimSkinner.Editor.Skins>Skins</RimSkinner.Editor.Skins>
     <RimSkinner.Editor.Graphics>Graphics</RimSkinner.Editor.Graphics>
     <RimSkinner.Editor.PreviewController.ColorTwo>Secondary color</RimSkinner.Editor.PreviewController.ColorTwo>
+    <RimSkinner.Editor.Actions.ChangeId>Change ID</RimSkinner.Editor.Actions.ChangeId>
+    <RimSkinner.Editor.Actions.Rename>Rename</RimSkinner.Editor.Actions.Rename>
+    <RimSkinner.Editor.Actions.Save>Save</RimSkinner.Editor.Actions.Save>
+    <RimSkinner.Editor.Actions.Revert>Revert</RimSkinner.Editor.Actions.Revert>
+    <RimSkinner.Editor.Actions.Reset>Reset</RimSkinner.Editor.Actions.Reset>
+    <RimSkinner.Editor.Actions.Duplicate>Duplicate</RimSkinner.Editor.Actions.Duplicate>
+    <RimSkinner.Editor.Actions.Delete>Delete</RimSkinner.Editor.Actions.Delete>
+    <RimSkinner.Editor.Actions.Export>Export</RimSkinner.Editor.Actions.Export>
+    <RimSkinner.Editor.Actions.Import>Import</RimSkinner.Editor.Actions.Import>
+    <RimSkinner.Editor.Actions.Save.Completed>Graphic settings saved.</RimSkinner.Editor.Actions.Save.Completed>
+    <RimSkinner.Editor.Actions.Revert.Completed>Graphic settings reverted to the last save.</RimSkinner.Editor.Actions.Revert.Completed>
+    <RimSkinner.Editor.Actions.Reset.Completed>Graphic settings reset to original values. Save to keep the changes.</RimSkinner.Editor.Actions.Reset.Completed>
+    <RimSkinner.Editor.Actions.EmptyValue>Enter a value.</RimSkinner.Editor.Actions.EmptyValue>
+    <RimSkinner.Editor.Actions.DuplicateId>A skin with this ID already exists for this building.</RimSkinner.Editor.Actions.DuplicateId>
+    <RimSkinner.Editor.Actions.ChangeId.Completed>Changed the ID of skin {0}.</RimSkinner.Editor.Actions.ChangeId.Completed>
+    <RimSkinner.Editor.Actions.Rename.Completed>Renamed the skin to {0}.</RimSkinner.Editor.Actions.Rename.Completed>
+    <RimSkinner.Editor.Actions.Duplicate.Completed>Duplicated skin {0}.</RimSkinner.Editor.Actions.Duplicate.Completed>
+    <RimSkinner.Editor.Actions.Delete.Confirm>Delete skin {0} ({1})?</RimSkinner.Editor.Actions.Delete.Confirm>
+    <RimSkinner.Editor.Actions.Delete.Completed>Deleted skin {0}.</RimSkinner.Editor.Actions.Delete.Completed>
 </LanguageData>

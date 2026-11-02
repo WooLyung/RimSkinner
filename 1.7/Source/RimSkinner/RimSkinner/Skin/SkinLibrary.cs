@@ -26,6 +26,22 @@ namespace RimSkinner.Skin
             return true;
         }
 
+        public static bool TryChangeId(SkinData skin, string id)
+        {
+            id = id.Trim();
+            if (id.Length == 0) return false;
+            var list = GetOrCreateList(DefDatabase<ThingDef>.GetNamed(skin.ThingDefName));
+            if (!list.Contains(skin) || list.Any(other => !ReferenceEquals(other, skin) &&
+                string.Equals(other.Id.Trim(), id, StringComparison.OrdinalIgnoreCase))) return false;
+            skin.Id = id;
+            return true;
+        }
+
+        public static bool Remove(SkinData skin)
+        {
+            var def = DefDatabase<ThingDef>.GetNamed(skin.ThingDefName);
+            return skins.TryGetValue(def, out var list) && list.Remove(skin);
+        }
         private static List<SkinData> GetOrCreateList(ThingDef def)
         {
             ArgumentNullException.ThrowIfNull(def);

@@ -10,7 +10,7 @@ namespace RimSkinner.Skin
 
         public int FormatVersion { get; set; }
 
-        public string Id { get; init; } = string.Empty;
+        public string Id { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string ThingDefName { get; set; } = string.Empty;
         public Dictionary<string, SkinGraphicData> Graphics { get; set; } = new();
@@ -56,6 +56,9 @@ namespace RimSkinner.Skin
                 return null;
             
             Texture2D clone = new Texture2D(original.width, original.height, original.format, original.mipmapCount > 1);
+            clone.LoadRawTextureData(original.GetRawTextureData());
+            clone.Apply(false, false);
+            clone.name = original.name;
             return clone;
         }
     }

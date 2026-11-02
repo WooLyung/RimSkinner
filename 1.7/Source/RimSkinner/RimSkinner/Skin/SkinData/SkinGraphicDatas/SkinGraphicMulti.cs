@@ -144,7 +144,7 @@ namespace RimSkinner.Skin
                 if (rotate)
                     UI.RotateAroundPivot(rotation.AsAngle + graphic.DrawRotatedExtraAngleOffset +
                         (flipped ? FlipExtraRotation ?? data.flipExtraRotation : 0f), image.center);
-                GenUI.DrawTextureWithMaterial(image, texture, previewMaterial, uv);
+                Graphics.DrawTexture(image, texture, uv, 0, 0, 0, 0, UnityEngine.Color.white, previewMaterial);
             }
             finally
             {

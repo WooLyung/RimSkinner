@@ -65,7 +65,7 @@ namespace RimSkinner.Editor
 
         public override void PostClose()
         {
-            content.Clear();
+            content.SelectSkin(null);
             base.PostClose();
         }
 
@@ -135,6 +135,9 @@ namespace RimSkinner.Editor
 
         private void DrawEditor(Rect rect)
         {
+            content.SelectSkin(SelectedSkin);
+            DrawEditorButtons(new Rect(rect.x, rect.y, rect.width, 38f));
+            rect.yMin += 44f;
             const float padding = 12f;
             const float gap = 6f;
 
@@ -194,6 +197,156 @@ namespace RimSkinner.Editor
             }
         }
 
+        private static readonly string[] EditorButtonKeys =
+        {
+            "ChangeId", "Rename", "Save", "Revert", "Reset", "Duplicate", "Delete", "Export", "Import"
+        };
+
+        private void DrawEditorButtons(Rect rect)
+        {
+            Widgets.DrawMenuSection(rect);
+            Rect inner = rect.ContractedBy(4f);
+            const float gap = 4f;
+            float width = (inner.width - gap * (EditorButtonKeys.Length - 1)) / EditorButtonKeys.Length;
+            if (width <= 0f) 
+                return;
+
+            GameFont previousFont = Text.Font;
+            TextAnchor previousAnchor = Text.Anchor;
+            try
+            {
+                Text.Font = GameFont.Tiny;
+                Text.Anchor = TextAnchor.MiddleCenter;
+
+                if (SelectedSkin != null)
+                {
+                    for (int i = 0; i < EditorButtonKeys.Length; i++)
+                    {
+                        Rect button = new Rect(inner.x + i * (width + gap), inner.y, width, inner.height);
+                        string label = ("RimSkinner.Editor.Actions." + EditorButtonKeys[i]).Translate();
+                        TooltipHandler.TipRegion(button, ("RimSkinner.Editor.Actions." + EditorButtonKeys[i] + ".Tooltip").Translate());
+
+                        if (Widgets.ButtonText(button, label.Truncate(width - 6f)))
+                        {
+                            switch (i)
+                            {
+                                case 0:
+                                    EditSkinText(true);
+                                    break;
+                                case 1:
+                                    EditSkinText(false);
+                                    break;
+                                case 2:
+                                    content.Save();
+                                    break;
+                                case 3:
+                                    content.Revert();
+                                    break;
+                                case 4:
+                                    content.Reset();
+                                    break;
+                                case 5:
+                                    DuplicateSkin();
+                                    break;
+                                case 6:
+                                    DeleteSkin();
+                                    break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < EditorButtonKeys.Length; i++)
+                    {
+                        Rect button = new Rect(inner.x + i * (width + gap), inner.y, width, inner.height);
+                        string label = ("RimSkinner.Editor.Actions." + EditorButtonKeys[i]).Translate();
+                        Widgets.DrawBoxSolid(button, new Color(0f, 0f, 0f, 0.2f));
+                        Widgets.Label(button.ContractedBy(3f), label.Truncate(width - 6f));
+                        TooltipHandler.TipRegion(button, ("RimSkinner.Editor.Actions." + EditorButtonKeys[i] + ".Tooltip").Translate());
+                    }
+                }
+            }
+            finally 
+            {
+                Text.Anchor = previousAnchor;
+                Text.Font = previousFont; 
+            }
+        }
+        private void EditSkinText(bool editId)
+        {
+            if (SelectedSkin == null) 
+                return;
+
+            SkinData selected = SelectedSkin;
+            string action = editId ? "ChangeId" : "Rename";
+            Find.WindowStack.Add(new SkinTextDialog(("RimSkinner.Editor.Actions." + action).Translate(), editId ? selected.Id : selected.Name, value =>
+                {
+                    string preName = selected.Name;
+
+                    if (string.IsNullOrWhiteSpace(value))
+                        return "RimSkinner.Editor.Actions.EmptyValue".Translate();
+
+                    if (editId)
+                    {
+                        if (!SkinLibrary.TryChangeId(selected, value))
+                            return "RimSkinner.Editor.Actions.DuplicateId".Translate();
+                    }
+                    else 
+                        selected.Name = value;
+                   
+                    Messages.Message(("RimSkinner.Editor.Actions." + action + ".Completed").Translate(preName, value), MessageTypeDefOf.TaskCompletion, historical: false);
+                    return null;
+                }));
+        }
+
+        private void DuplicateSkin()
+        {
+            if (SelectedSkin == null || SelectedBuildingDef == null)
+                return;
+
+            var skins = SkinLibrary.GetSkins(SelectedBuildingDef);
+            string prefix = SelectedSkin.Id + "_Copy";
+
+            int number = 1;
+            while (skins.Any(item => string.Equals(item.Id.Trim(), prefix + number, StringComparison.OrdinalIgnoreCase)))
+                number++;
+
+            SkinData copy = content.CreateDuplicate(prefix + number);
+            copy.Name += $" ({number})";
+
+            if (!SkinLibrary.TryAdd(copy)) 
+                return;
+
+            SelectedSkin = copy;
+            content.SelectSkin(copy);
+            buildingSkins = SkinLibrary.GetSkins(SelectedBuildingDef);
+            skinScroll.y = buildingSkins.Count * 30f;
+
+            Messages.Message("RimSkinner.Editor.Actions.Duplicate.Completed".Translate(copy.Name), MessageTypeDefOf.TaskCompletion, historical: false);
+        }
+
+        private void DeleteSkin()
+        {
+            if (SelectedSkin == null) return;
+            SkinData selected = SelectedSkin;
+            Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                "RimSkinner.Editor.Actions.Delete.Confirm".Translate(selected.Name, selected.Id), () =>
+                {
+                    if (!SkinLibrary.Remove(selected)) 
+                        return;
+                    if (ReferenceEquals(SelectedSkin, selected))
+                    {
+                        SelectedSkin = null;
+                        SelectedGraphicPath = null;
+                        content.SelectSkin(null);
+                    }
+                    if (SelectedBuildingDef != null)
+                        buildingSkins = SkinLibrary.GetSkins(SelectedBuildingDef);
+
+                    Messages.Message("RimSkinner.Editor.Actions.Delete.Completed".Translate(selected.Name), MessageTypeDefOf.TaskCompletion, historical: false);
+                }, destructive: true));
+        }
         private void DrawSelectionInfo(Rect rect, string label, string tooltip, string? value, string? detail)
         {
             GameFont previousFont = Text.Font;

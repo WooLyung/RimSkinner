@@ -100,7 +100,7 @@ namespace RimSkinner.Skin
             try
             {
                 GUI.color = UnityEngine.Color.white;
-                GenUI.DrawTextureWithMaterial(image, texture, previewMaterial, uv);
+                Graphics.DrawTexture(image, texture, uv, 0, 0, 0, 0, UnityEngine.Color.white, previewMaterial);
             }
             finally
             {

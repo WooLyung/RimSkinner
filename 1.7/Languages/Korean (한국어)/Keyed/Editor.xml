@@ -29,13 +29,13 @@
     <RimSkinner.Editor.Inspector.DrawRotated>회전</RimSkinner.Editor.Inspector.DrawRotated>
     <RimSkinner.Editor.Inspector.AllowFlip>반전 허용</RimSkinner.Editor.Inspector.AllowFlip>
     <RimSkinner.Editor.Inspector.FlipExtraRotation>반전 회전각</RimSkinner.Editor.Inspector.FlipExtraRotation>
-    <RimSkinner.Editor.Inspector.ShaderTypeDefName>셰이더 Def</RimSkinner.Editor.Inspector.ShaderTypeDefName>
+    <RimSkinner.Editor.Inspector.ShaderTypeDefName>셰이더</RimSkinner.Editor.Inspector.ShaderTypeDefName>
     <RimSkinner.Editor.Inspector.TextureRepeats>텍스처 반복</RimSkinner.Editor.Inspector.TextureRepeats>
     <RimSkinner.Editor.Inspector.AllowAtlasing>아틀라스 허용</RimSkinner.Editor.Inspector.AllowAtlasing>
     <RimSkinner.Editor.Inspector.RenderQueue>렌더 큐</RimSkinner.Editor.Inspector.RenderQueue>
     <RimSkinner.Editor.Inspector.OverlayOpacity>오버레이 불투명도</RimSkinner.Editor.Inspector.OverlayOpacity>
     <RimSkinner.Editor.Inspector.AddTopAltitudeBias>상단 높이 보정</RimSkinner.Editor.Inspector.AddTopAltitudeBias>
-    <RimSkinner.Editor.Inspector.IgnoreThingDrawColor>도색 무시</RimSkinner.Editor.Inspector.IgnoreThingDrawColor>
+    <RimSkinner.Editor.Inspector.IgnoreThingDrawColor>색상 무시</RimSkinner.Editor.Inspector.IgnoreThingDrawColor>
     <RimSkinner.Editor.Inspector.Texture>텍스처</RimSkinner.Editor.Inspector.Texture>
     <RimSkinner.Editor.Inspector.Mask>마스크</RimSkinner.Editor.Inspector.Mask>
     <RimSkinner.Editor.Inspector.DrawOffsetNorth>오프셋 (북)</RimSkinner.Editor.Inspector.DrawOffsetNorth>
@@ -55,10 +55,42 @@
 
     <RimSkinner.Editor.PreviewController>미리보기 제어</RimSkinner.Editor.PreviewController>
     <RimSkinner.Editor.PreviewController.Color>색상</RimSkinner.Editor.PreviewController.Color>
+    <RimSkinner.Editor.PreviewController.ColorTwo>보조 색상</RimSkinner.Editor.PreviewController.ColorTwo>
     <RimSkinner.Editor.PreviewController.Single>단일</RimSkinner.Editor.PreviewController.Single>
     <RimSkinner.Editor.PreviewController.North>북쪽</RimSkinner.Editor.PreviewController.North>
     <RimSkinner.Editor.PreviewController.East>동쪽</RimSkinner.Editor.PreviewController.East>
     <RimSkinner.Editor.PreviewController.South>남쪽</RimSkinner.Editor.PreviewController.South>
     <RimSkinner.Editor.PreviewController.West>서쪽</RimSkinner.Editor.PreviewController.West>
-    <RimSkinner.Editor.PreviewController.ColorTwo>보조 색상</RimSkinner.Editor.PreviewController.ColorTwo>
+
+    <RimSkinner.Editor.Actions.ChangeId>ID 변경</RimSkinner.Editor.Actions.ChangeId>
+    <RimSkinner.Editor.Actions.ChangeId.Tooltip>스킨의 ID를 변경합니다.</RimSkinner.Editor.Actions.ChangeId.Tooltip>
+    <RimSkinner.Editor.Actions.ChangeId.Completed>{0} 스킨의 ID를 {1}(으)로 변경했습니다.</RimSkinner.Editor.Actions.ChangeId.Completed>
+    <RimSkinner.Editor.Actions.Rename>이름 변경</RimSkinner.Editor.Actions.Rename>
+    <RimSkinner.Editor.Actions.Rename.Tooltip>스킨의 이름을 변경합니다.</RimSkinner.Editor.Actions.Rename.Tooltip>
+    <RimSkinner.Editor.Actions.Rename.Completed>{0} 스킨의 이름을 {1}(으)로 변경했습니다.</RimSkinner.Editor.Actions.Rename.Completed>
+    <RimSkinner.Editor.Actions.Save>저장</RimSkinner.Editor.Actions.Save>
+    <RimSkinner.Editor.Actions.Save.Tooltip>스킨을 저장합니다.</RimSkinner.Editor.Actions.Save.Tooltip>
+    <RimSkinner.Editor.Actions.Save.Completed>{0} 스킨을 저장했습니다.</RimSkinner.Editor.Actions.Save.Completed>
+    <RimSkinner.Editor.Actions.Revert>취소</RimSkinner.Editor.Actions.Revert>
+    <RimSkinner.Editor.Actions.Revert.Tooltip>스킨의 변경사항을 취소시켜 저장된 상태로 되돌립니다.</RimSkinner.Editor.Actions.Revert.Tooltip>
+    <RimSkinner.Editor.Actions.Revert.Completed>{0} 스킨의 변경사항을 취소시켰습니다.</RimSkinner.Editor.Actions.Revert.Completed>
+    <RimSkinner.Editor.Actions.Reset>초기화</RimSkinner.Editor.Actions.Reset>
+    <RimSkinner.Editor.Actions.Reset.Tooltip>스킨의 설정 값을 모두 초기화합니다. 바로 저장되지 않습니다.</RimSkinner.Editor.Actions.Reset.Tooltip>
+    <RimSkinner.Editor.Actions.Reset.Completed>{0} 스킨의 설정 값을 초기화했습니다.</RimSkinner.Editor.Actions.Reset.Completed>
+    <RimSkinner.Editor.Actions.Duplicate>복제</RimSkinner.Editor.Actions.Duplicate>
+    <RimSkinner.Editor.Actions.Duplicate.Tooltip>스킨을 복제하여 새로운 스킨을 생성합니다.</RimSkinner.Editor.Actions.Duplicate.Tooltip>
+    <RimSkinner.Editor.Actions.Duplicate.Completed>{0} 스킨을 복제하였습니다.</RimSkinner.Editor.Actions.Duplicate.Completed>
+    <RimSkinner.Editor.Actions.Delete>삭제</RimSkinner.Editor.Actions.Delete>
+    <RimSkinner.Editor.Actions.Delete.Tooltip>스킨을 영구적으로 삭제합니다.</RimSkinner.Editor.Actions.Delete.Tooltip>
+    <RimSkinner.Editor.Actions.Delete.Completed>{0} 스킨을 삭제했습니다.</RimSkinner.Editor.Actions.Delete.Completed>
+    <RimSkinner.Editor.Actions.Export>익스포트</RimSkinner.Editor.Actions.Export>
+    <RimSkinner.Editor.Actions.Export.Tooltip>스킨을 파일로 저장합니다.</RimSkinner.Editor.Actions.Export.Tooltip>
+    <RimSkinner.Editor.Actions.Export.Completed></RimSkinner.Editor.Actions.Export.Completed>
+    <RimSkinner.Editor.Actions.Import>임포트</RimSkinner.Editor.Actions.Import>
+    <RimSkinner.Editor.Actions.Import.Tooltip>저장된 스킨 파일을 불러옵니다.</RimSkinner.Editor.Actions.Import.Tooltip>
+    <RimSkinner.Editor.Actions.Import.Completed></RimSkinner.Editor.Actions.Import.Completed>
+
+    <RimSkinner.Editor.Actions.EmptyValue>값을 입력하세요.</RimSkinner.Editor.Actions.EmptyValue>
+    <RimSkinner.Editor.Actions.DuplicateId>이 건물에 같은 ID의 스킨이 있습니다.</RimSkinner.Editor.Actions.DuplicateId>
+    <RimSkinner.Editor.Actions.Delete.Confirm>{0} ({1}) 스킨을 삭제하시겠습니까?</RimSkinner.Editor.Actions.Delete.Confirm>
 </LanguageData>
